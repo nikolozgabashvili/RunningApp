@@ -29,11 +29,57 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version = "coreSplashscreen" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "lifecycleRuntimeKtx" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version = "materialIconsExtended" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "navigationCompose" }
+androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version = "securityCryptoKtx" }
+coil-compose = { module = "io.coil-kt:coil-compose", version = "coilCompose" }
+core = { module = "com.google.android.play:core", version = "playCore" }
+core-testing = { module = "com.google.android.play:core-testing", version = "playCore" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "kotlinx-serialization" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "coroutines" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version = "coroutines" }
+desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version = "desugar_jdk_libs" }
+androidx-work = { group = "androidx.work", name = "work-runtime-ktx", version = "work" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+koin-android-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version = "koin" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version = "ktorClientLogging" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version = "ktor" }
+ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version = "ktorServerCallLogging" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version = "room" }
+timber = { module = "com.jakewharton.timber:timber", version = "timber" }
+google-maps-android-compose = { module = "com.google.maps.android:maps-compose", version = "maps" }
+google-android-gms-play-services-location = { module = "com.google.android.gms:play-services-location", version = "gmsLocation" }
+org-mongodb-bson = { module = "org.mongodb:bson", version = "bson" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version = "playServicesMaps" }
+google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version = "mapsUtils" }
+annotation = { group = "androidx.annotation", name = "annotation", version = "annotation" }
 [plugins]
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+ksp = { id = "com.google.devtools.ksp", version = "ksp" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "kotlin" }
+room = { id = "androidx.room", version = "room" }
+androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
+mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "secretsPlugin" }
 
