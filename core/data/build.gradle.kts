@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "ge.tegeta.core.designsystem"
+    namespace = "ge.tegeta.core.data"
     compileSdk = 34
 
     defaultConfig {
@@ -33,11 +33,7 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    debugImplementation(libs.androidx.ui.tooling)
-    api(libs.androidx.material3)
+    implementation(libs.timber)
+    implementation(projects.core.domain)
+    implementation(projects.core.database)
 }

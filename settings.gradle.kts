@@ -20,6 +20,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "trackerApp"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":auth:data")
 include(":auth:domain")
@@ -33,3 +34,4 @@ include(":run:presentation")
 include(":run:domain")
 include(":run:location")
 include(":run:network")
+include(":core:data")
