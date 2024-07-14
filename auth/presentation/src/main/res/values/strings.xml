@@ -13,8 +13,10 @@
     <string name="email">email</string>
     <string name="must_be_valid_email">must be valid email</string>
     <string name="password">password</string>
-    <string name="at_least_x_characters">At leats $d characters</string>
+    <string name="at_least_x_characters">At least %d characters</string>
     <string name="at_least_one_number">At least one number</string>
     <string name="contains_lowercase_character">contains lowercase character</string>
-    <string name="contains_uppercase_character">contains uppercase character\n</string>
+    <string name="contains_uppercase_character">contains uppercase character</string>
+    <string name="error_email_already_exists">user already exists</string>
+    <string name="registration_success">registration Successfull</string>
 </resources>

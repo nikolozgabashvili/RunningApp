@@ -22,11 +22,11 @@ suspend inline fun <reified Response : Any> HttpClient.get(
 ): Result<Response, DataError.Network> {
     return safeCall {
         get {
-            url(constructRoute(route)) {
-                queryParameters.forEach { (key, value) ->
-                    parameter(key, value)
-                }
+            url(constructRoute(route))
+            queryParameters.forEach { (key, value) ->
+                parameter(key, value)
             }
+
         }
     }
 }
@@ -37,11 +37,11 @@ suspend inline fun <reified Response : Any> HttpClient.delete(
 ): Result<Response, DataError.Network> {
     return safeCall {
         delete {
-            url(constructRoute(route)) {
-                queryParameters.forEach { (key, value) ->
-                    parameter(key, value)
-                }
+            url(constructRoute(route))
+            queryParameters.forEach { (key, value) ->
+                parameter(key, value)
             }
+
         }
     }
 }
@@ -52,9 +52,9 @@ suspend inline fun <reified Request, reified Response : Any> HttpClient.post(
 ): Result<Response, DataError.Network> {
     return safeCall {
         post {
-            url(constructRoute(route)) {
-                setBody(body)
-            }
+            url(constructRoute(route))
+            setBody(body)
+
         }
     }
 }
@@ -92,7 +92,7 @@ suspend inline fun <reified T> responseToResult(response: HttpResponse): Result<
 fun constructRoute(route: String): String {
     return when {
         route.contains(BuildConfig.BASE_URL) -> route
-        route.startsWith("/") -> BuildConfig.BASE_URL + "route"
+        route.startsWith("/") -> BuildConfig.BASE_URL + route
         else -> BuildConfig.BASE_URL + "/" + route
     }
 }

@@ -82,7 +82,7 @@ fun RuniquePasswordTextField(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .background(
-                    if (isFocused) MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+                    if (isFocused) MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
                     else MaterialTheme.colorScheme.surface
                 )
                 .border(

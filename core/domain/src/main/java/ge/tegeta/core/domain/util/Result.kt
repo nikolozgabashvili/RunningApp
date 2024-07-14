@@ -12,8 +12,8 @@ inline fun <T, E : Error, R> Result<T, E>.map(transform: (T) -> R): Result<R, E>
     }
 }
 
-fun <T, E : Error> Result<T, E>.asEmptyData(): EmptyDataResult<E> {
+fun <T, E : Error> Result<T, E>.asEmptyData(): EmptyResult<E> {
     return map {}
 }
 
-typealias EmptyDataResult<E> = Result<Unit, E>
+typealias EmptyResult<E> = Result<Unit, E>
