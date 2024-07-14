@@ -47,6 +47,7 @@ internal fun Project.configureKotlin(
     tasks.withType<KotlinCompile>().configureEach {
         compilerOptions {
             compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
+
         }
     }
 }

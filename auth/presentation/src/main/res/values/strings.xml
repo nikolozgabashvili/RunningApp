@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="AppName">Tracker App</string>
+    <string name="intro_description">"Hello"</string>
+    <string name="signUp">Sign Up</string>
+    <string name="welcome_to_runique">welcome to my app</string>
+    <string name="runique_description">this is application description</string>
+    <string name="signIn">Sign In</string>
+    <string name="register">Create account</string>
+    <string name="already_have_acc">already have account?</string>
+    <string name="login">login</string>
+    <string name="example_email">example@test.com</string>
+    <string name="email">email</string>
+    <string name="must_be_valid_email">must be valid email</string>
+    <string name="password">password</string>
+    <string name="at_least_x_characters">At leats $d characters</string>
+    <string name="at_least_one_number">At least one number</string>
+    <string name="contains_lowercase_character">contains lowercase character</string>
+    <string name="contains_uppercase_character">contains uppercase character\n</string>
+</resources>
