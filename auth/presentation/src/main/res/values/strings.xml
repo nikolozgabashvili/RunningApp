@@ -19,4 +19,7 @@
     <string name="contains_uppercase_character">contains uppercase character</string>
     <string name="error_email_already_exists">user already exists</string>
     <string name="registration_success">registration Successful</string>
+    <string name="do_not_have_acc">do not have account?</string>
+    <string name="you_are_logged_in">you are logged in</string>
+    <string name="hi_there">hello there</string>
 </resources>

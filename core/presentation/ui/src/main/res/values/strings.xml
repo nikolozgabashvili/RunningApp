@@ -2,11 +2,11 @@
 <resources>
     <string name="error_request_timeout">Request Time Out</string>
     <string name="error_unauthorized">Unauthorized!</string>
-    <string name="error_disk_full">disk is full\n</string>
-    <string name="error_too_many_requests">too many requests\n</string>
+    <string name="error_disk_full">disk is full</string>
+    <string name="error_too_many_requests">too many requests</string>
     <string name="error_no_internet">internet error</string>
-    <string name="error_payload_too_large">file is too large\n</string>
+    <string name="error_payload_too_large">file is too large</string>
     <string name="error_server_error">something went wrong</string>
-    <string name="error_serialization_error">couldnot parse error\n</string>
-    <string name="error_unknown">unknow error\n</string>
+    <string name="error_serialization_error">could not parse error</string>
+    <string name="error_unknown">unknown error</string>
 </resources>
