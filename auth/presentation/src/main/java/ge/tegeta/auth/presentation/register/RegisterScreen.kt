@@ -67,7 +67,7 @@ fun RegisterScreenRoot(
 
             RegisterEvent.RegistrationSuccess -> {
                 keyboard?.hide()
-                Toast.makeText(context,R.string.registration_success, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.registration_success, Toast.LENGTH_SHORT).show()
                 onRegistrationClick()
             }
         }
@@ -149,6 +149,7 @@ private fun RegisterScreen(
             Spacer(modifier = Modifier.height(16.dp))
             RuniquePasswordTextField(
                 state = state.password,
+                isPasswordVisible = state.isPasswordVisible,
                 hint = stringResource(id = R.string.password),
                 title = stringResource(id = R.string.password),
                 modifier = Modifier.fillMaxWidth(),

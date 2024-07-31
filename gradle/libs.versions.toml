@@ -70,7 +70,6 @@ core-testing = { module = "com.google.android.play:core-testing", version.ref = 
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
-desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 androidx-work = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
 koin-android-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
@@ -93,6 +92,8 @@ org-mongodb-bson = { module = "org.mongodb:bson", version.ref = "bson" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
+
 
 
 # Gradle

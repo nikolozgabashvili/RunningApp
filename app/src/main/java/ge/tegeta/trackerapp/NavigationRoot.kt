@@ -1,5 +1,6 @@
 package ge.tegeta.trackerapp
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -9,16 +10,20 @@ import androidx.navigation.navigation
 import ge.tegeta.auth.presentation.intro.IntroScreenRoot
 import ge.tegeta.auth.presentation.login.LoginScreenRoot
 import ge.tegeta.auth.presentation.register.RegisterScreenRoot
+import ge.tegeta.run.presentation.active_run.ActiveRunScreenRoot
+import ge.tegeta.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable
 fun NavigationRoot(
     navController: NavHostController,
+    isLoggedIn: Boolean
 ) {
     NavHost(
         navController = navController,
-        startDestination = "auth"
+        startDestination = if (isLoggedIn) "run" else "auth"
     ) {
         authGraph(navController)
+        runGraph(navController)
     }
 }
 
@@ -72,6 +77,25 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
                     }
                 }
             )
+        }
+    }
+}
+
+private fun NavGraphBuilder.runGraph(navController: NavHostController) {
+    navigation(
+        startDestination = "run_overview",
+        route = "run"
+    ) {
+        composable("run_overview") {
+            RunOverviewScreenRoot(
+                onStartRunClick = {
+                    navController.navigate("active_run")
+
+                }
+            )
+        }
+        composable("active_run") {
+            ActiveRunScreenRoot()
         }
     }
 }

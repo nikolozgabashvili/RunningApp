@@ -22,4 +22,5 @@
     <string name="do_not_have_acc">do not have account?</string>
     <string name="you_are_logged_in">you are logged in</string>
     <string name="hi_there">hello there</string>
+    <string name="error_email_password_incorrect">email or password is incorrect</string>
 </resources>

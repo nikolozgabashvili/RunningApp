@@ -4,6 +4,7 @@ import android.app.Application
 import ge.tegeta.auth.data.di.authDataModule
 import ge.tegeta.auth.presentation.di.authViewModelModule
 import ge.tegeta.core.data.di.coreDataModule
+import ge.tegeta.run.presentation.di.runOverviewViewModelModule
 import ge.tegeta.trackerapp.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +24,8 @@ class App : Application() {
                 authDataModule,
                 authViewModelModule,
                 appModule,
-                coreDataModule
+                coreDataModule,
+                runOverviewViewModelModule
             )
         }
     }
