@@ -4,14 +4,18 @@ import android.app.Application
 import ge.tegeta.auth.data.di.authDataModule
 import ge.tegeta.auth.presentation.di.authViewModelModule
 import ge.tegeta.core.data.di.coreDataModule
-import ge.tegeta.run.presentation.di.runOverviewViewModelModule
+import ge.tegeta.run.location.di.locationModule
+import ge.tegeta.run.presentation.di.runPresentationModule
 import ge.tegeta.trackerapp.di.appModule
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class App : Application() {
+    val applicationScope = CoroutineScope(SupervisorJob())
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
@@ -25,7 +29,8 @@ class App : Application() {
                 authViewModelModule,
                 appModule,
                 coreDataModule,
-                runOverviewViewModelModule
+                runPresentationModule,
+                locationModule
             )
         }
     }
