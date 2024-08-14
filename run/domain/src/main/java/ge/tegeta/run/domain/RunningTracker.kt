@@ -2,13 +2,12 @@
 
 package ge.tegeta.run.domain
 
+import ge.tegeta.core.domain.location.LocationWithAltitude
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class RunningTracker(
     private val locationObserver: LocationObserver,
@@ -16,18 +15,23 @@ class RunningTracker(
 ) {
 
     private val isObservingLocation = MutableStateFlow(false)
+    val currentLocation = MutableStateFlow<LocationWithAltitude?>(null)
 
-    val currentLocation = isObservingLocation
-        .flatMapLatest { isObservingLocation ->
-            if(isObservingLocation) {
-                locationObserver.observeLocation(1000L)
-            } else flowOf()
+    init {
+        applicationScope.launch {
+            isObservingLocation
+                .collect { isObservingLocation ->
+                    if (isObservingLocation) {
+                        locationObserver.observeLocation(1000L).collect {
+                            currentLocation.value = it
+                        }
+                    } else {
+                        flowOf(null)
+                    }
+                }
+
         }
-        .stateIn(
-            applicationScope,
-            SharingStarted.Lazily,
-            null
-        )
+    }
 
     fun startObservingLocation() {
         isObservingLocation.value = true

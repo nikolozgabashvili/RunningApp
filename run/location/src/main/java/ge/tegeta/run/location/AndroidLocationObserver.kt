@@ -25,53 +25,53 @@ class AndroidLocationObserver(
 ) : LocationObserver {
     private val client = LocationServices.getFusedLocationProviderClient(context)
 
-    override fun observeLocation(interval: Long): Flow<LocationWithAltitude> {
-        return callbackFlow {
-            val locationManager = context.getSystemService<LocationManager>()
-            var isGpsEnabled = false
-            var isNetworkEnabled = false
-            while (!isGpsEnabled && !isNetworkEnabled) {
-                isGpsEnabled = locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER) == true
-                isNetworkEnabled = locationManager?.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == true
-                if (!isGpsEnabled && !isNetworkEnabled) {
-                    delay(3000L)
-                }
-
+    override fun observeLocation(interval: Long): Flow<LocationWithAltitude> = callbackFlow {
+        val locationManager = context.getSystemService<LocationManager>()
+        var isGpsEnabled = false
+        var isNetworkEnabled = false
+        while (!isGpsEnabled && !isNetworkEnabled) {
+            isGpsEnabled = locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER) == true
+            isNetworkEnabled =
+                locationManager?.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == true
+            if (!isGpsEnabled && !isNetworkEnabled) {
+                delay(3000L)
             }
-            if (ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                close()
-            } else {
-                client.lastLocation.addOnSuccessListener {
-                    it?.let { location ->
+
+        }
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            close()
+        } else {
+            client.lastLocation.addOnSuccessListener {
+                it?.let { location ->
+                    trySend(location.toLocationWithAltitude())
+                }
+            }
+
+            val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, interval)
+                .build()
+
+            val locationCallback = object : LocationCallback() {
+                override fun onLocationResult(result: LocationResult) {
+                    super.onLocationResult(result)
+                    result.locations.lastOrNull()?.let { location ->
                         trySend(location.toLocationWithAltitude())
                     }
                 }
-
-                val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, interval)
-                    .build()
-
-                val locationCallback = object : LocationCallback() {
-                    override fun onLocationResult(result: LocationResult) {
-                        super.onLocationResult(result)
-                        result.locations.lastOrNull()?.let { location ->
-                            trySend(location.toLocationWithAltitude())
-                        }
-                    }
-                }
-
-                client.requestLocationUpdates(request, locationCallback, Looper.getMainLooper())
-
-                awaitClose {
-                    client.removeLocationUpdates(locationCallback)
-                }
             }
+
+            client.requestLocationUpdates(request, locationCallback, Looper.getMainLooper())
+
+            awaitClose {
+                client.removeLocationUpdates(locationCallback)
+            }
+
         }
     }
 }

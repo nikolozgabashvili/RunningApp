@@ -37,7 +37,7 @@ class ActiveRunViewModel(
 
         runningTracker.currentLocation.onEach {location->
             Timber.d("Location: $location")
-        }
+        }.launchIn(viewModelScope)
     }
 
     fun onAction(action: ActiveRunAction) {
