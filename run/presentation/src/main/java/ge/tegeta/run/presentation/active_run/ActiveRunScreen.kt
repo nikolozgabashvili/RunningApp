@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ge.tegeta.core.presentation.designsystem.StartIcon
@@ -27,9 +28,12 @@ import ge.tegeta.core.presentation.designsystem.TrackerAppTheme
 import ge.tegeta.core.presentation.designsystem.components.CustomDialog
 import ge.tegeta.core.presentation.designsystem.components.FloatingActionButton
 import ge.tegeta.core.presentation.designsystem.components.MyScaffold
+import ge.tegeta.core.presentation.designsystem.components.RuniqueActionButton
 import ge.tegeta.core.presentation.designsystem.components.RuniqueOutlinedActionButton
 import ge.tegeta.core.presentation.designsystem.components.Toolbar
+import ge.tegeta.run.presentation.R
 import ge.tegeta.run.presentation.active_run.components.RunDataCard
+import ge.tegeta.run.presentation.active_run.maps.TrackerMap
 import ge.tegeta.run.presentation.util.hasLocationPermission
 import ge.tegeta.run.presentation.util.hasNotificationPermission
 import ge.tegeta.run.presentation.util.shouldShowLocationPermissionRationale
@@ -131,6 +135,12 @@ private fun ActiveRunScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
+            TrackerMap(
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapshot = {}
+            )
             RunDataCard(
                 modifier = Modifier
                     .padding(16.dp)
@@ -140,6 +150,24 @@ private fun ActiveRunScreen(
         }
 
     }
+    if (!state.shouldTrack && state.hasStartedRunning) {
+        CustomDialog(
+            title = stringResource(id = R.string.running_poused),
+            onDismiss = { onAction(ActiveRunAction.OnResumeRunClick) },
+            description = "resume or finish run",
+            primaryButton = {
+                RuniqueActionButton(modifier = Modifier.weight(1f),text = "resume", isLoading = false) {
+                    onAction(ActiveRunAction.OnResumeRunClick)
+                }
+            }, secondaryButton = {
+                RuniqueOutlinedActionButton(modifier = Modifier.weight(1f),text = "finish", isLoading = state.isSavingRun) {
+                    onAction(ActiveRunAction.OnFinishRunClick)
+                }
+            }
+        )
+
+    }
+
     if (state.showLocationRationale || state.showNotificationRationale) {
         CustomDialog(
             title = "Permission Required",
