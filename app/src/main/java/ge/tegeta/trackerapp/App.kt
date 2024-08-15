@@ -4,6 +4,7 @@ import android.app.Application
 import ge.tegeta.auth.data.di.authDataModule
 import ge.tegeta.auth.presentation.di.authViewModelModule
 import ge.tegeta.core.data.di.coreDataModule
+import ge.tegeta.core.database.di.databaseModule
 import ge.tegeta.run.location.di.locationModule
 import ge.tegeta.run.presentation.di.runPresentationModule
 import ge.tegeta.trackerapp.di.appModule
@@ -30,7 +31,8 @@ class App : Application() {
                 appModule,
                 coreDataModule,
                 runPresentationModule,
-                locationModule
+                locationModule,
+                databaseModule
             )
         }
     }

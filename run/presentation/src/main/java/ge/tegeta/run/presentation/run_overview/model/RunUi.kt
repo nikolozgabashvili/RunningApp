@@ -11,5 +11,5 @@ data class RunUi(
     val maxSpeed: String,
     val pace: String,
     val totalElevation: String,
-    val mapPictureURL: String
+    val mapPictureURL: String?
 )
