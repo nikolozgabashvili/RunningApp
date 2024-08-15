@@ -34,6 +34,7 @@ import ge.tegeta.core.presentation.designsystem.components.Toolbar
 import ge.tegeta.run.presentation.R
 import ge.tegeta.run.presentation.active_run.components.RunDataCard
 import ge.tegeta.run.presentation.active_run.maps.TrackerMap
+import ge.tegeta.run.presentation.active_run.service.ActiveRunService
 import ge.tegeta.run.presentation.util.hasLocationPermission
 import ge.tegeta.run.presentation.util.hasNotificationPermission
 import ge.tegeta.run.presentation.util.shouldShowLocationPermissionRationale
@@ -43,13 +44,15 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 
 fun ActiveRunScreenRoot(
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel()
 
 ) {
 
     ActiveRunScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = viewModel::onAction,
+        onServiceToggle = onServiceToggle
 
     )
 
@@ -58,6 +61,7 @@ fun ActiveRunScreenRoot(
 @Composable
 private fun ActiveRunScreen(
     state: ActiveRunState,
+    onServiceToggle:(isServiceRunning:Boolean) ->Unit,
     onAction: (ActiveRunAction) -> Unit
 
 ) {
@@ -112,6 +116,19 @@ private fun ActiveRunScreen(
         if (!shouldShowLocationRational && !shouldShowNotificationRational) {
             permissionManager.requestPermissions(context)
         }
+    }
+    LaunchedEffect(state.isRunFinished) {
+        if (state.isRunFinished) {
+            onServiceToggle(false)
+        }
+
+    }
+
+    LaunchedEffect(state.shouldTrack) {
+        if (context.hasLocationPermission()&&state.shouldTrack && !ActiveRunService.isServiceActive){
+            onServiceToggle(true)
+        }
+
     }
 
     MyScaffold(
@@ -216,6 +233,7 @@ private fun ActiveRunScreenPreview() {
         ActiveRunScreen(
 
             state = ActiveRunState(),
+            onServiceToggle = {},
             onAction = {}
 
         )
