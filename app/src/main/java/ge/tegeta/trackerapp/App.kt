@@ -6,6 +6,7 @@ import ge.tegeta.auth.presentation.di.authViewModelModule
 import ge.tegeta.core.data.di.coreDataModule
 import ge.tegeta.core.database.di.databaseModule
 import ge.tegeta.run.location.di.locationModule
+import ge.tegeta.run.network.di.networkModule
 import ge.tegeta.run.presentation.di.runPresentationModule
 import ge.tegeta.trackerapp.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -32,7 +33,8 @@ class App : Application() {
                 coreDataModule,
                 runPresentationModule,
                 locationModule,
-                databaseModule
+                databaseModule,
+                networkModule
             )
         }
     }

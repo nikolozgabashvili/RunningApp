@@ -1,14 +1,13 @@
 package ge.tegeta.auth.data
 
 import ge.tegeta.auth.domain.AuthRepository
-import ge.tegeta.core.data.auth.EncryptedSessionStorage
 import ge.tegeta.core.data.networking.post
 import ge.tegeta.core.domain.AuthInfo
 import ge.tegeta.core.domain.SessionTokenStorage
 import ge.tegeta.core.domain.util.DataError
 import ge.tegeta.core.domain.util.EmptyResult
 import ge.tegeta.core.domain.util.Result
-import ge.tegeta.core.domain.util.asEmptyData
+import ge.tegeta.core.domain.util.asEmptyDataResult
 import io.ktor.client.HttpClient
 
 class AuthRepositoryImpl(
@@ -42,7 +41,7 @@ class AuthRepositoryImpl(
                 )
             )
         }
-        return result.asEmptyData()
+        return result.asEmptyDataResult()
 
     }
 

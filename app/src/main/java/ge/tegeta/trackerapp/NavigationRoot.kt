@@ -1,6 +1,5 @@
 package ge.tegeta.trackerapp
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
@@ -105,9 +104,20 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
             )) {
             val context = LocalContext.current
             ActiveRunScreenRoot(
+                onBack = {
+                    navController.navigateUp()
+                },
+                onFinish = {
+                    navController.navigateUp()
+                },
                 onServiceToggle = { shouldServiceRun ->
                     if (shouldServiceRun) {
-                        context.startService(ActiveRunService.createStartIntent(context, MainActivity::class.java))
+                        context.startService(
+                            ActiveRunService.createStartIntent(
+                                context,
+                                MainActivity::class.java
+                            )
+                        )
                     } else {
                         context.startService(ActiveRunService.createStopIntent(context))
 

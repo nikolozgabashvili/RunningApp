@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ge.tegeta.core.domain.location.Location
 import ge.tegeta.core.domain.run.Run
+import ge.tegeta.core.domain.run.RunRepository
+import ge.tegeta.core.domain.util.Result
+import ge.tegeta.core.presentation.ui.asUiText
 import ge.tegeta.run.domain.LocationDataCalculator
 import ge.tegeta.run.domain.RunningTracker
 import ge.tegeta.run.presentation.active_run.service.ActiveRunService
@@ -24,7 +27,8 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class ActiveRunViewModel(
-    private val runningTracker: RunningTracker
+    private val runningTracker: RunningTracker,
+    private val runRepository: RunRepository
 ) : ViewModel() {
 
     var state by mutableStateOf(
@@ -146,6 +150,17 @@ class ActiveRunViewModel(
                 mapPictureUrl = null
             )
             runningTracker.finishRun()
+
+            when (val result = runRepository.upsertRun(run, mapPictureBytes)) {
+                is Result.Error -> {
+                    eventChannel.send(ActiveRunEvent.Error(result.error.asUiText()))
+                }
+
+                is Result.Success -> {
+                    eventChannel.send(ActiveRunEvent.RunSaved)
+                }
+            }
+
             state = state.copy(isSavingRun = false)
         }
     }

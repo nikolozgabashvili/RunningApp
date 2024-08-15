@@ -12,7 +12,7 @@ inline fun <T, E : Error, R> Result<T, E>.map(transform: (T) -> R): Result<R, E>
     }
 }
 
-fun <T, E : Error> Result<T, E>.asEmptyData(): EmptyResult<E> {
+fun <T, E : Error> Result<T, E>.asEmptyDataResult(): EmptyResult<E> {
     return map {}
 }
 

@@ -1,6 +1,5 @@
 package ge.tegeta.run.presentation.run_overview.model
 
-import java.net.URL
 
 data class RunUi(
     val id:String,
