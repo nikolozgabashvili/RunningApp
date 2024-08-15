@@ -4,6 +4,7 @@ package ge.tegeta.run.presentation.active_run
 
 import android.Manifest
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -40,6 +41,7 @@ import ge.tegeta.run.presentation.util.hasNotificationPermission
 import ge.tegeta.run.presentation.util.shouldShowLocationPermissionRationale
 import ge.tegeta.run.presentation.util.shouldShowNotificationPermissionRationale
 import org.koin.androidx.compose.koinViewModel
+import java.io.ByteArrayOutputStream
 
 @Composable
 
@@ -61,7 +63,7 @@ fun ActiveRunScreenRoot(
 @Composable
 private fun ActiveRunScreen(
     state: ActiveRunState,
-    onServiceToggle:(isServiceRunning:Boolean) ->Unit,
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     onAction: (ActiveRunAction) -> Unit
 
 ) {
@@ -125,7 +127,7 @@ private fun ActiveRunScreen(
     }
 
     LaunchedEffect(state.shouldTrack) {
-        if (context.hasLocationPermission()&&state.shouldTrack && !ActiveRunService.isServiceActive){
+        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
             onServiceToggle(true)
         }
 
@@ -156,7 +158,17 @@ private fun ActiveRunScreen(
                 isRunFinished = state.isRunFinished,
                 currentLocation = state.currentLocation,
                 locations = state.runData.locations,
-                onSnapshot = {}
+                onSnapshot = { bmp ->
+                    val stream = ByteArrayOutputStream()
+                    stream.use {
+                        bmp.compress(
+                            Bitmap.CompressFormat.JPEG,
+                            80,
+                            it
+                        )
+                    }
+                    onAction(ActiveRunAction.OnRunProcessed(stream.toByteArray()))
+                }
             )
             RunDataCard(
                 modifier = Modifier
@@ -173,11 +185,19 @@ private fun ActiveRunScreen(
             onDismiss = { onAction(ActiveRunAction.OnResumeRunClick) },
             description = "resume or finish run",
             primaryButton = {
-                RuniqueActionButton(modifier = Modifier.weight(1f),text = "resume", isLoading = false) {
+                RuniqueActionButton(
+                    modifier = Modifier.weight(1f),
+                    text = "resume",
+                    isLoading = false
+                ) {
                     onAction(ActiveRunAction.OnResumeRunClick)
                 }
             }, secondaryButton = {
-                RuniqueOutlinedActionButton(modifier = Modifier.weight(1f),text = "finish", isLoading = state.isSavingRun) {
+                RuniqueOutlinedActionButton(
+                    modifier = Modifier.weight(1f),
+                    text = "finish",
+                    isLoading = state.isSavingRun
+                ) {
                     onAction(ActiveRunAction.OnFinishRunClick)
                 }
             }
@@ -198,6 +218,7 @@ private fun ActiveRunScreen(
                 RuniqueOutlinedActionButton(text = "Ok", isLoading = false) {
                     onAction(ActiveRunAction.DismissDialog)
                     permissionManager.requestPermissions(context)
+
 
                 }
             })
