@@ -17,12 +17,20 @@ fun Duration.formatted(): String {
 }
 
 fun Double.toFormattedKm(): String {
-    return "${this.roundToDecimals(1)} km"
+    return "${this.roundToDecimals(1)} km/h"
+}
+
+fun Int.toFormattedMeters(): String {
+    return "$this m"
 }
 
 private fun Double.roundToDecimals(decimals: Int): Double {
     val factor = 10f.pow(decimals)
     return round(this * factor) / factor
+}
+
+fun Double.toFormattedKmh(): String {
+    return "${roundToDecimals(1)} km/h"
 }
 
 @SuppressLint("DefaultLocale")

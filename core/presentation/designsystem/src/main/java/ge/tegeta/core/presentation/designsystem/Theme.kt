@@ -20,6 +20,8 @@ val DarkColorScheme = darkColorScheme(
     onSurface = TrackerWhite,
     onSurfaceVariant = TrackerGray,
     error = TrackerDarkRed,
+    errorContainer = TrackerDarkRed5
+
 )
 
 @Composable
