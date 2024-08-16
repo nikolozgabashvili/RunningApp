@@ -1,6 +1,7 @@
 package ge.tegeta.core.data.run
 
 import ge.tegeta.core.data.auth.EncryptedSessionStorage
+import ge.tegeta.core.data.networking.get
 import ge.tegeta.core.database.dao.RunPendingSyncDao
 import ge.tegeta.core.database.mappers.toRun
 import ge.tegeta.core.domain.run.LocalRunDataSource
@@ -13,6 +14,10 @@ import ge.tegeta.core.domain.util.DataError
 import ge.tegeta.core.domain.util.EmptyResult
 import ge.tegeta.core.domain.util.Result
 import ge.tegeta.core.domain.util.asEmptyDataResult
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerAuthProvider
+import io.ktor.client.plugins.plugin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -26,7 +31,8 @@ class OfflineFirstRunRepository(
     private val applicationScope: CoroutineScope,
     private val runPendingSyncDao: RunPendingSyncDao,
     private val sessionStorage: EncryptedSessionStorage,
-    private val syncRunScheduler: SyncRunScheduler
+    private val syncRunScheduler: SyncRunScheduler,
+    private val client: HttpClient
 ) : RunRepository {
 
     override fun getRuns(): Flow<List<Run>> {
@@ -141,5 +147,18 @@ class OfflineFirstRunRepository(
 
         }
         return Result.Error(DataError.Local.DISK_FULL)
+    }
+
+    override suspend fun logout(): EmptyResult<DataError.Network> {
+        val result = client.get<Unit>(
+            route = "logout"
+        )
+        client.plugin(Auth).providers.filterIsInstance<BearerAuthProvider>()
+            .firstOrNull()?.clearToken()
+        return result.asEmptyDataResult()
+    }
+
+    override suspend fun deleteAllRuns() {
+        localRunDataSource.deleteAllRuns()
     }
 }
