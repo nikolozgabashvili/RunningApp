@@ -8,6 +8,7 @@ import ge.tegeta.core.domain.run.RemoteRunDataSource
 import ge.tegeta.core.domain.run.Run
 import ge.tegeta.core.domain.run.RunId
 import ge.tegeta.core.domain.run.RunRepository
+import ge.tegeta.core.domain.run.SyncRunScheduler
 import ge.tegeta.core.domain.util.DataError
 import ge.tegeta.core.domain.util.EmptyResult
 import ge.tegeta.core.domain.util.Result
@@ -24,7 +25,8 @@ class OfflineFirstRunRepository(
     private val remoteRunDataSource: RemoteRunDataSource,
     private val applicationScope: CoroutineScope,
     private val runPendingSyncDao: RunPendingSyncDao,
-    private val sessionStorage: EncryptedSessionStorage
+    private val sessionStorage: EncryptedSessionStorage,
+    private val syncRunScheduler: SyncRunScheduler
 ) : RunRepository {
 
     override fun getRuns(): Flow<List<Run>> {
@@ -51,6 +53,12 @@ class OfflineFirstRunRepository(
         val remoteResult = remoteRunDataSource.postRun(runWithId, mapPicture)
         return when (remoteResult) {
             is Result.Error -> {
+                applicationScope.launch {
+
+                    syncRunScheduler.scheduleSync(
+                        syncType = SyncRunScheduler.SyncType.CreateRun(runWithId, mapPicture)
+                    )
+                }.join()
                 Result.Success(Unit)
             }
 
@@ -75,6 +83,15 @@ class OfflineFirstRunRepository(
         val remoteResult = applicationScope.async {
             remoteRunDataSource.deleteRun(id)
         }.await()
+
+        if (remoteResult is Result.Error) {
+            applicationScope.launch {
+
+                syncRunScheduler.scheduleSync(
+                    syncType = SyncRunScheduler.SyncType.DeleteRun(id)
+                )
+            }.join()
+        }
     }
 
     override suspend fun syncPendingRuns(): EmptyResult<DataError> {
