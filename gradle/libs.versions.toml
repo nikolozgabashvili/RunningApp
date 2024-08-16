@@ -125,6 +125,7 @@ tracker-android-feature-ui = { id = "ge.tracker.android.feature.ui", version = "
 tracker-android-room = { id = "ge.tracker.android.room", version = "unspecified" }
 tracker-jvm-library = { id = "ge.tracker.jvm.library", version = "unspecified" }
 tracker-jvm-ktor = { id = "ge.tracker.jvm.ktor", version = "unspecified" }
+tracker-android-dynamic-feature = { id = "ge.tracker.android.dynamic.feature", version = "unspecified" }
 
 
 [bundles]

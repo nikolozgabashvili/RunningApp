@@ -24,4 +24,10 @@ class MainViewModel(
         }
     }
 
+    fun setAnalyticsDialogVisibility(isVisible: Boolean) {
+        state = state.copy(showAnalyticsDialog = isVisible)
+    }
+
+
+
 }

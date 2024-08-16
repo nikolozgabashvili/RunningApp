@@ -45,5 +45,9 @@ gradlePlugin {
             id = "ge.tracker.jvm.ktor"
             implementationClass = "JvmKtorConventionPlugin"
         }
+        register("androidDynamicFeature") {
+            id = "ge.tracker.android.dynamic.feature"
+            implementationClass = "AndroidDynamicFeatureConventionPlugin"
+        }
     }
 }

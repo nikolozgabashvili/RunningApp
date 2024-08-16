@@ -9,7 +9,6 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         target.run {
             pluginManager.apply("ge.tracker.library")
-            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
             val extension = extensions.getByType<LibraryExtension>()
             configureCompose(extension)
         }

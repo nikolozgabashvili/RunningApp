@@ -9,6 +9,7 @@ internal fun Project.configureCompose(
     commonExtension: CommonExtension<*, *, *, *, *, *>
 ) {
     commonExtension.run {
+        pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
         buildFeatures {
             compose = true
         }

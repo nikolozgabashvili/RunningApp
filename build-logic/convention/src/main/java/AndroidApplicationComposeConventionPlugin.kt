@@ -9,7 +9,6 @@ class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         target.run {
             pluginManager.apply("ge.tracker.application")
-            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
             val extension = extensions.getByType<ApplicationExtension>()
             configureCompose(extension)
         }

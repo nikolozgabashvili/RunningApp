@@ -1,6 +1,8 @@
 package ge.tegeta.trackerapp
 
 import android.app.Application
+import android.content.Context
+import com.google.android.play.core.splitcompat.SplitCompat
 import ge.tegeta.auth.data.di.authDataModule
 import ge.tegeta.auth.presentation.di.authViewModelModule
 import ge.tegeta.core.data.di.coreDataModule
@@ -41,5 +43,10 @@ class App : Application() {
                 runDataModule
             )
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        SplitCompat.install(this)
     }
 }
